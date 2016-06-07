@@ -1,0 +1,212 @@
+
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> TweetsComplete_raw <- read.csv("C:\\Users\\A00037189\\Desktop\\TweetsComplete.csv",stringsAsFactors = FALSE)
+> TweetsComplete_raw$type <- factor(TweetsComplete_raw$type)
+> str(TweetsComplete_raw$type)
+ Factor w/ 2 levels "Negative","Positive": 1 2 1 2 1 2 1 2 1 2 ...
+> table(TweetsComplete_raw$type)
+
+Negative Positive 
+     100       99 
+> install.packages("tm")
+Installing package into ‘C:/Users/A00037189/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+trying URL 'http://ftp.heanet.ie/mirrors/cran.r-project.org/bin/windows/contrib/3.2/tm_0.6-2.zip'
+Content type 'application/zip' length 710066 bytes (693 KB)
+downloaded 693 KB
+
+package ‘tm’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\A00037189\AppData\Local\Temp\RtmpaitV1I\downloaded_packages
+> TweetsComplete_corpus <- Corpus(VectorSource(TweetsComplete_raw$tweet))
+Error: could not find function "Corpus"
+> writeLines(as.character(TweetsComplete_corpus[[1]]))
+Error in writeLines(as.character(TweetsComplete_corpus[[1]])) : 
+  object 'TweetsComplete_corpus' not found
+> library(tm)
+Loading required package: NLP
+Warning messages:
+1: package ‘tm’ was built under R version 3.2.3 
+2: package ‘NLP’ was built under R version 3.2.3 
+> TweetsComplete_corpus <- Corpus(VectorSource(TweetsComplete_raw$tweet))
+> writeLines(as.character(TweetsComplete_corpus[[1]]))
+Say No #IrishWater Ambulance crews not told about emergency access: Irish Water said the 24-hour road closure ... 
+> TweetsComplete_corpus <- Corpus(VectorSource(TweetsComplete_raw$tweet))
+> writeLines(as.character(TweetsComplete_corpus[[1]]))
+Say No #IrishWater Ambulance crews not told about emergency access: Irish Water said the 24-hour road closure ... 
+> corpus_clean <- tm_map(TweetsComplete_corpus, content_transformer(tolower))
+> corpus_clean <- tm_map(corpus_clean, removeNumbers)
+> corpus_clean <- tm_map(corpus_clean, removeWords, stopwords())
+> corpus_clean <- tm_map(corpus_clean, removePunctuation)
+> corpus_clean <- tm_map(corpus_clean, stripWhitespace)
+> writeLines(as.character(corpus_clean[[1]]))
+say irishwater ambulance crews told emergency access irish water said hour road closure 
+> TweetsComplete_dtm <- DocumentTermMatrix(corpus_clean)
+> inspect(TweetsComplete_dtm[1:3, 220:225])
+<<DocumentTermMatrix (documents: 3, terms: 6)>>
+Non-/sparse entries: 0/18
+Sparsity           : 100%
+Maximal term length: 10
+Weighting          : term frequency (tf)
+
+    Terms
+Docs dazzles deadly deal death debits decentgood
+   1       0      0    0     0      0          0
+   2       0      0    0     0      0          0
+   3       0      0    0     0      0          0
+> TweetsComplete_raw_train <- TweetsComplete_raw[1:170, ]
+> TweetsComplete_raw_test  <- TweetsComplete_raw[171:199, ]
+> TweetsComplete_dtm_train <- TweetsComplete_dtm[1:170, ]
+> TweetsComplete_dtm_test  <- TweetsComplete_dtm[171:199, ]
+> TweetsComplete_corpus_train <- corpus_clean[1:170]
+> TweetsComplete_corpus_test  <- corpus_clean[171:199]
+> prop.table(table(TweetsComplete_raw_train$type))
+
+Negative Positive 
+     0.5      0.5 
+> prop.table(table(TweetsComplete_raw_test$type))
+
+ Negative  Positive 
+0.5172414 0.4827586 
+> install.packages("wordcloud")
+Installing package into ‘C:/Users/A00037189/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+trying URL 'http://ftp.heanet.ie/mirrors/cran.r-project.org/bin/windows/contrib/3.2/wordcloud_2.5.zip'
+Content type 'application/zip' length 465759 bytes (454 KB)
+downloaded 454 KB
+
+package ‘wordcloud’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\A00037189\AppData\Local\Temp\RtmpaitV1I\downloaded_packages
+> library(wordcloud)
+Loading required package: RColorBrewer
+Warning messages:
+1: package ‘wordcloud’ was built under R version 3.2.3 
+2: package ‘RColorBrewer’ was built under R version 3.2.3 
+> wordcloud(TweetsComplete_corpus_train, min.freq = 3, random.order = FALSE)
+> Negative <- subset(TweetsComplete_raw_train, type == "Negative")
+> Positive <- subset(TweetsComplete_raw_train, type == "Positive")
+> wordcloud(Negative$tweet, max.words = 40, scale = c(3, 0.5))
+> wordcloud(Positive$tweet, max.words = 40, scale = c(3, 0.5))
+> TweetsComplete_dict <- findFreqTerms(TweetsComplete_dtm_train, 5)
+> TweetsComplete_train <- DocumentTermMatrix(TweetsComplete_corpus_train, list(dictionary = TweetsComplete_dict))
+> TweetsComplete_test <- DocumentTermMatrix(TweetsComplete_corpus_test,list(dictionary = TweetsComplete_dict))
+> convert_counts <- function(x) {x <- ifelse(x > 0, 1, 0) x <- factor(x, levels = c(0, 1), labels = c("No", "Yes"))}
+Error: unexpected symbol in "convert_counts <- function(x) {x <- ifelse(x > 0, 1, 0) x"
+> # convert counts to a factor
+> convert_counts <- function(x) {
++   x <- ifelse(x > 0, 1, 0)
++   x <- factor(x, levels = c(0, 1), labels = c("No", "Yes"))
++ }
+> TweetsComplete_train <- apply(TweetsComplete_train, MARGIN = 2, convert_counts)
+> TweetsComplete_test  <- apply(TweetsComplete_test, MARGIN = 2, convert_counts)
+> install.packages("e1071")
+Installing package into ‘C:/Users/A00037189/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+trying URL 'http://ftp.heanet.ie/mirrors/cran.r-project.org/bin/windows/contrib/3.2/e1071_1.6-7.zip'
+Content type 'application/zip' length 814106 bytes (795 KB)
+downloaded 795 KB
+
+package ‘e1071’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\A00037189\AppData\Local\Temp\RtmpaitV1I\downloaded_packages
+> TweetsComplete_classifier <- naiveBayes(TweetsComplete_train, TweetsComplete_raw_train$type)
+Error: could not find function "naiveBayes"
+> library(e1071)
+Warning message:
+package ‘e1071’ was built under R version 3.2.3 
+> TweetsComplete_classifier <- naiveBayes(TweetsComplete_train, TweetsComplete_raw_train$type)
+> TweetsComplete_classifier <- naiveBayes(TweetsComplete_train, TweetsComplete_raw_train$type)
+> TweetsComplete_test_pred <- predict(TweetsComplete_classifier, TweetsComplete_test)
+> install.packages("gmodels")
+Installing package into ‘C:/Users/A00037189/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+trying URL 'http://ftp.heanet.ie/mirrors/cran.r-project.org/bin/windows/contrib/3.2/gmodels_2.16.2.zip'
+Content type 'application/zip' length 73866 bytes (72 KB)
+downloaded 72 KB
+
+package ‘gmodels’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\A00037189\AppData\Local\Temp\RtmpaitV1I\downloaded_packages
+> library(gmodels)
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘gtools’
+In addition: Warning message:
+package ‘gmodels’ was built under R version 3.2.3 
+Error: package or namespace load failed for ‘gmodels’
+> install.packages("gtools")
+Installing package into ‘C:/Users/A00037189/R/win-library/3.2’
+(as ‘lib’ is unspecified)
+trying URL 'http://ftp.heanet.ie/mirrors/cran.r-project.org/bin/windows/contrib/3.2/gtools_3.5.0.zip'
+Content type 'application/zip' length 143976 bytes (140 KB)
+downloaded 140 KB
+
+package ‘gtools’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\A00037189\AppData\Local\Temp\RtmpaitV1I\downloaded_packages
+> library(gtools)
+
+Attaching package: ‘gtools’
+
+The following object is masked from ‘package:e1071’:
+
+    permutations
+
+Warning message:
+package ‘gtools’ was built under R version 3.2.3 
+> library(gmodels)
+Warning message:
+package ‘gmodels’ was built under R version 3.2.3 
+> CrossTable(TweetsComplete_test_pred, TweetsComplete_raw_test$type, 
++ prop.chisq = FALSE, prop.t = FALSE, prop.r = FALSE,
++ dnn = c('predicted', 'actual'))
+
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+|           N / Col Total |
+|-------------------------|
+
+ 
+Total Observations in Table:  29 
+
+ 
+             | actual 
+   predicted |  Negative |  Positive | Row Total | 
+-------------|-----------|-----------|-----------|
+    Negative |         6 |         8 |        14 | 
+             |     0.400 |     0.571 |           | 
+-------------|-----------|-----------|-----------|
+    Positive |         9 |         6 |        15 | 
+             |     0.600 |     0.429 |           | 
+-------------|-----------|-----------|-----------|
+Column Total |        15 |        14 |        29 | 
+             |     0.517 |     0.483 |           | 
+-------------|-----------|-----------|-----------|
+
+ 
+> 
