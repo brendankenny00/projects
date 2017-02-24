@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>KennysCars</title>
+ <!--  
+ <script type="text/javascript" src="lib/underscore-min.js"></script>
+ <script type="text/javascript" src="lib/jquery-2.2.1.js"></script>
+ <script type="text/javascript" src="lib/jquery.dataTables.js"></script>
+ <script type="text/javascript" src="lib/backbone.js"></script>
+ <script type="text/javascript" src="lib/bootstrap.js"></script>
+ <script type="text/javascript" src="lib/dataTables.bootstrap.js"> </script>
+ <script type="text/javascript" src="lib/dataTables.bootstrapPagination.js"> </script>
+ 
+ <script type="text/javascript" src="js/models.js"></script>
+ <script type="text/javascript" src="js/tableView.js" ></script>
+ <script type="text/javascript" src="js/movieView.js" ></script>
+ <script type="text/javascript" src="js/modalView.js" ></script>
+ <script type="text/javascript" src="js/app.js" ></script>
+ 
+ <link rel="stylesheet" href="css/jquery.dataTables.css"/>
+ <link rel="stylesheet" href="css/bootstrap.css"/>
+ <link rel="stylesheet" href="css/dataTables.bootstrap.css"/>
+ <link rel="stylesheet" href="css/styles.css"/> 
+ -->
+
+ 
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/jquery.dataTables.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<script src="js/jquery-2.2.1.js"></script>
+<script src="js/jquery.dataTables.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/main2.js"></script>
+<script src="lib/jquery-1.7.1.min.js"></script>
+
+<script src="lib/underscore-min.js"></script>
+<script src="lib/backbone-min.js"></script>
+<script src="js/models.js"></script>
+ 
+
+</head>
+
+<body background="images/carbg.jpg">
+
+<header>
+<!--  div class="grow pic"-->
+ 	<img src="images/ford.jpg" alt="Car" height="146" width="295">
+ 	<h1 class="extruded">Welcome to KennyCars</h1>
+ 	<h2 class="extruded">The Best Cars in Town.</h2><br>
+</header>
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active">
+  <a href="#about" role="tab" data-toggle="tab">About</a></li>
+  <li><a href="#cars" role="tab" data-toggle="tab">Cars</a></li>
+  <li><a href="#contactus" role="tab" data-toggle="tab">Contact Us</a></li>
+  <li><a href="#featured" role="tab" data-toggle="tab">Featured</a></li>
+  <li><a href="#gallery" role="tab" data-toggle="tab">Gallery</a></li>
+</ul>
+
+  <div class="tab-pane active" id="about">
+		<h2 class="extruded">Kennys Cars</h2>
+		<p>Kennys Cars is the number one store for great cars.  We have all the usual luxury brands you would come to expect from Ireland's Premier Car Store:
+Talbot, Lexus, BMW, Audi, Ford, Lada.  Whatever you are looking for in a car, we will have it.  Our ever friendly staff will be more than willing to take your calls and help you with any queries you should have.
+Our friendly on site salesman Kanye West is more than willing to help!</p>
+
+		<p>All our cars are sold as seen and we do not entertain complaints!  So if you are going out the road with your new purchase and one of the wheels come off
+don't come crying to us!</p>
+
+		<p>We also off money laundering services for a fee to those of you who might be acting the maggot!</p>
+
+  </div>
+  
+  <div class="tab-pane" id="cars">
+	<h2 class ="extruded">Cars in Stock</h2>
+	<table id="myTable">
+	<thead>
+	<tr><th>Name</th><th>Make</th><th>Model</th><th>Year</th><th>Mileage</th><th>NCT</th><th>Colour</th><th>Engine Size</th><th>Details</th><th>Edit</th></tr></thead>
+		<tbody id = "tBody"></tbody>
+	</table>
+  </div>
+
+  <div class="tab-pane" id="featured">
+		<h2 class ="extruded">Featured Cars</h2>
+		<p>These Cars and Many More are Available at our New State of the Art Showroom!</p>
+
+		<div class="img">
+  		<a target="_blank" href="aston.jpg">
+  		<img src="images/aston.jpg" alt="cars" height="400" width="300">
+    
+  		</a>
+  		<div class="desc">A Nice Aston</div>
+
+ 	<div class="img">
+  		<a target="_blank" href="bluecar.jpg">
+    	<img src="images/bluecar.jpg" alt="cars" height="250" width="330">
+  		</a>
+  		<div class="desc">A Nice Blue Car</div>
+ 	</div>
+
+	
+ 	<div class="img">
+  		<a target="_blank" href="car.jpg">
+     	<img src="images/car.jpg" alt="cars" height="250" width="330">
+  		</a>
+  		<div class="desc">A Nice Car</div>
+ 	</div>
+
+ 	<div class="img">
+  		<a target="_blank" href="kitt.jpg">
+    	<img src="images/kitt.jpg" alt="cars" height="250" width="330">
+  		</a>
+  		<div class="desc">A Nice Pontiac</div>
+	</div>
+  </div>
+ </div>
+  
+  <div class="tab-pane" id="contactus">
+	<h2 class="extruded">Contact Us!</h2>
+	<p>Contact us.  Our main dealership is at the following address:</p>
+	<p>     
+		Lough Sheever Corporate Park<br>
+		Mullingar, Co. Westmeath<br>
+		T: 044 934 2400<br>
+		F: 044 934 2064<br>
+	E: admin@kennycars.com<br>
+	</p>
+	<p>
+	Opening Hours:<br>
+	Mon - Friday: 9am - 6pm <br>
+	Saturday: 10am - 2pm <br>
+	Sunday: Closed<br>
+	</p>    
+  </div>
+  
+  
+  <div class="tab-pane" id="gallery">
+	<h2 class="extruded">Gallery</h2>
+  	<style>
+
+    	/*CSS*/
+    	div.c-wrapper{
+    	width: 50%; /* for example */
+    	margin: auto;
+   		 }
+
+    	.carousel-inner > .item > img,
+    	.carousel-inner > .item > a > img{
+    	width: 50%; /* use this, or not */
+    	margin: auto;
+    	}
+   </style>
+   
+  <div class="container">
+    <br/>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+         
+            <div class="item active">
+                <img src="images/aston.jpg" alt="cars" height="300" width="300">
+                
+            </div>
+            <div class="item">
+                <img src="images/bluecar.jpg" alt="cars" height="300" width="300">
+               
+            </div>
+            <div class="item">
+                <img src="images/car.jpg" alt="cars" height="300" width="300">
+               
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+</div>
+
+
+
+<footer>
+ <p>&copy; KennysCars "The Best Cars In Town!"  A Brendan Kenny Production   brendankenny00@gmail.com</p>
+</footer>
+</body>
+
+  <!-- DESCRIPTION Modal -->
+  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Description</h4>
+        </div>
+        <div class="modal-body">
+          <img id = "picture" height = "300"/>
+         
+          <textarea row= "70" cols="50" id="description" name="decription"></textarea>
+          
+          
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+    <!-- EDIT DETAILS Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Edit Details.</p>
+          
+          <div class="mainArea">
+          <label>Id:</label>
+		<input id="carId" name="id" type="text" disabled />
+	
+		<label>Make:</label>
+	    <input type="text" id="make" name="make" />
+	
+		<label>Model:</label>
+	   <input type="text" id="model" name="model"/>
+	
+	    <label>Year:</label>
+	   <input type="text" id="year" name="year"/>
+	
+	   <label>Mileage:</label>
+	   <input type="text" id="mileage" name="mileage"/>
+	   
+	   <label>NCT:</label>
+	   <input type="text" id="nct" name="nct"/> 
+	
+	  <label>Colour:</label>
+	   <input type="text" id="colour" name="colour"/>
+        
+         <label>Engine Size:</label>
+	   <input type="text" id="engine_size" name="engine_size"/>
+	   
+	   <img id = "pictureedit" height = "200"/>
+	   <textarea row= "70" cols="50" id="descriptionedit" name="decription"></textarea>
+	   
+	 <div class="modal-footer">
+        
+        <button id="save" name="save" type="button">Save</button>
+		<button id="newcar" name="newcar" type="button">New Car</button>
+		<button id="delete" name="delete" type="button">Delete</button>
+    	<button id="search" name="search" type="button">Search</button>
+    	<input id="searchfield" type="text" name="searchfield">
+        </div>
+	  
+	</div>   
+     
+        </div>
+        <div class="modal-footer">
+       
+      </div>    
+    </div>
+  </div>
+
+</body>
+
+</html>

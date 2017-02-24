@@ -1,0 +1,335 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+ <title>KennysCars</title>
+
+<link rel="stylesheet" href="css/jquery.dataTables.css"/>
+ <link rel="stylesheet" href="css/bootstrap.css"/>
+ 
+ <link rel="stylesheet" href="css/styles.css"/>
+
+
+ <script type="text/javascript" src="files3/underscore-min.js"></script>
+ <script type="text/javascript" src="files3/jquery.js"></script>
+  <script type="text/javascript" src="js3/jquery.dataTables.js"></script>
+ <script type="text/javascript" src="files3/backbone.js"></script>
+ <script type="text/javascript" src="files3/bootstrap.js"></script>
+ <script type="text/javascript" src="js3/dataTables.bootstrap.js"> </script>
+ <script type="text/javascript" src="js3/dataTables.bootstrapPagination.js"> </script> 
+  <script type="text/javascript" src="js3/models.js"> </script>
+  <script type="text/javascript" src="js3/tableView.js"> </script>
+  <script type="text/javascript" src="js3/carView.js"> </script> 
+  <script type="text/javascript" src="js3/modalView.js"> </script>
+  <script type="text/javascript" src="js3/app.js"> </script>
+ 
+
+<script type="text/template" id="carlist">
+			<td><%=id%></td>
+			<td><%=make%></td>
+			<td><%=model%></td>
+			<td><%=year%></td>
+			<td><%=milleage%></td>
+			<td><%=nct%></td>
+		    <td><%=colour%></td>
+			<td><%=engineSize%></td>
+			<td><a href="#" class="moreDetails" id="<%=id%>">Description</a>
+			<td><a href="#" class="edit" id="<%=id%>">Edit</a></td>
+</script>
+
+<script type="text/template" id="Details">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        				<h4 class="modal-title" id="mLabel">Car Details</h4>
+      				</div>
+      				<div class="modal-body" id="modal-content">
+      					<h3>Description of Car</h3>
+						<p><%=make%>&nbsp<%=model%>&nbsp<%=year%></p>
+						
+						
+						<p><%=description%></p>
+
+						<img src="images/<%=picture%>" height="300" width="300">
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      				</div>
+    			</div>
+  			</div>	
+	</script>	
+	
+<script type="text/template" id="Edit">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        				<h4 class="modal-title" id="mLabel">Edit Car Details</h4>
+      				</div>
+      				<div class="modal-body" id="modal-content">
+      					<h3>Edit Details</h3>
+						<table>
+						<tr>
+							<th style="width:50%">Attribute:</th>
+							<th style="width:50%">Value:</th>
+						</tr>
+						<tr>
+							<td><label>Id:</label></td>
+							<td><input id="carId" name="Id" type="text" value=<%=id%> disabled /> </td>
+						</tr>
+						<tr>
+							<td><label>Make:</label></td>
+							<td><input type="text" id="make" name="Make" value=<%=make%> /> </td>
+						</tr>
+						<tr>
+							<td><label>Model:</label></td>
+							<td><input type="text" id="model" name="Model" value=<%=model%> /></td>
+						</tr>
+						<tr>
+							<td><label>Year:</label></td>
+							<td><input type="text" id="year" name="Year" value=<%=year%> /></td>
+						</tr>
+						<tr>
+							<td><label>Mileage:</label></td>
+							<td><input type="text" id="mileage" name="Mileage" value=<%=milleage%> /></td>
+						</tr>
+						<tr>
+							<td><label>NCT:</label></td>
+							<td><input type="text" id="nct" name="NCT" value=<%=nct%> /></td>
+						</tr>
+						<tr>
+							<td><label>Colour:</label></td>
+							<td><input type="text" id="colour" name="Colour" value=<%=colour%> /></td>
+						</tr>
+						<tr>
+							<td><label>Engine Size:</label></td>
+							<td><input type="text" id="enginesize" name="EngineSize" value=<%=engineSize%> /></td>
+						</tr>
+						<tr>
+							<td><label>Picture:</label></td>
+							<td><img src="images/<%=picture%>" height="300" width="300"></td>
+							
+						</tr>
+						
+						</table>
+
+						
+      				</div>
+      				<div class="modal-footer">
+						<button id="save" name="save" type="button">Save</button>
+						<button id="newCar" name="newCar" type="button">New Car</button>
+						<button id="delete" name="delete" type="button">Delete</button>
+					</div>
+    			</div>
+  			</div>	
+	</script>	
+	
+
+	
+<link rel="stylesheet" href="css/jquery.dataTables.css" />
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/styles.css" />
+		
+</head>
+
+
+
+
+<body background="images/carbg.jpg">
+
+
+<header>
+        <img src="images/ford.jpg" alt="Car" height="146" width="295">
+ <h1 class="extruded">Welcome to KennyCars</h1>
+ <h2 class="extruded">The Best Cars in Town.</h2><br>
+</header>
+
+
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active">
+  <a href="#about" role="tab" data-toggle="tab">About</a></li>
+  <li><a href="#cars" role="tab" data-toggle="tab">Cars</a></li>
+  <li><a href="#contact" role="tab" data-toggle="tab">Contact Us</a></li>
+  <li><a href="#featuredCars" role="tab" data-toggle="tab">Featured</a></li>
+  <li><a href="#CarGallery" role="tab" data-toggle="tab">Gallery</a></li>
+</ul>
+
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="about">
+<h2 class="extruded">Kennys Cars</h2>
+<p>Kennys Cars is the number one store for great cars.  We have all the usual luxury brands you would come to expect from Ireland's Premier Car Store:
+Talbot, Lexus, BMW, Audi, Ford, Lada.  Whatever you are looking for in a car, we will have it.  Our ever friendly staff will be more than willing to take your calls and help you with any queries you should have.
+Our friendly on site salesman Ronan Cassidy is more than willing to help!</p>
+
+<p>All our cars are sold as seen and we do not entertain complaints!  So if you are going out the road with your new purchase and one of the wheels come off
+don't come crying to us!</p>
+
+
+
+  </div>
+  <div class="tab-pane" id="cars">
+<h2 class ="extruded">Cars in Stock</h2>
+<table id="CarTable">
+<thead>
+<tr>
+	<th>ID</th>
+	<th>Make</th>
+	<th>Model</th>
+	<th>Year</th>
+	<th>Mileage</th>
+	<th>NCT</th>
+	<th>Colour</th>
+	<th>Engine Size</th>
+	<th>Details</th>
+	<th>Edit</th>
+</tr>
+</thead>
+
+<tbody id = "cTableBody">
+</tbody>
+
+
+</table>
+
+	<div style="display: none;" class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true"></div>
+</div>
+
+
+<div class="tab-pane" id="featuredCars">
+<h2 class ="extruded">Featured Cars</h2>
+<p>These Cars and Many More are Available at our New State of the Art Showroom!</p>
+
+<div class="img">
+  <a target="_blank" href="aston.jpg">
+  <img src="images/aston.jpg" alt="cars" height="230" width="330">
+    
+  </a>
+  <div class="desc">A Nice Aston</div>
+</div>
+
+<div class="img">
+  <a target="_blank" href="bluecar.jpg">
+    <img src="images/bluecar.jpg" alt="cars" height="230" width="330">
+  </a>
+  <div class="desc">A Nice Blue Car</div>
+</div>
+
+<div class="img">
+  <a target="_blank" href="car.jpg">
+     <img src="images/car.jpg" alt="cars" height="250" width="330">
+  </a>
+  <div class="desc">A Nice Car</div>
+</div>
+
+<div class="img">
+  <a target="_blank" href="kitt.jpg">
+    <img src="images/kitt.jpg" alt="cars" height="250" width="330">
+  </a>
+  <div class="desc">A Nice Pontiac</div>
+</div>
+  </div>
+  
+  <div class="tab-pane" id="contact">
+<h2 class="extruded">Contact Us!</h2>
+<img src="images/bk.jpg" alt="Car" height="200" width="320" align="middle"><br>
+
+<address>
+   <a href="mailto:brendankenny00@gmail.com"style="color:#FF0000">brendankenny00@gmail.com</a>
+</address>
+
+
+
+<p>Contact us.  Our main dealership is at the following address:</p>
+
+
+<p>     
+Lough Sheever Corporate Park<br>
+Mullingar, Co. Westmeath<br>
+T: 044 934 2400<br>
+F: 044 934 2064<br>
+E: admin@kennycars.com<br>
+</p>
+<p>
+Opening Hours:<br>
+Mon - Friday: 9am - 6pm <br>
+Saturday: 10am - 2pm <br>
+Sunday: Closed<br>
+</p>   
+ 
+   
+     
+  </div>
+  
+  
+ <div class="tab-pane" id="CarGallery">
+<h2 class="extruded">Gallery</h2>
+
+
+  <style>
+
+    /*CSS*/
+    div.c-wrapper{
+    width: 50%; /* for example */
+    margin: auto;
+    }
+
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img{
+    width: 50%; /* use this, or not */
+    margin: auto;
+    }
+  </style>
+  <div class="container">
+
+    <br/>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+         
+            <div class="item active">
+                <img src="images/lexus2.jpg" alt="cars" height="250" width="250">
+                
+            </div>
+            <div class="item">
+                <img src="images/subaruWRX.jpg" alt="cars" height="250" width="250">
+               
+            </div>
+            <div class="item">
+                <img src="images/toyota2014.jpg" alt="cars" height="250" width="250">
+               
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+</div>
+
+
+<footer>
+ <p>&copy; KennysCars "The Best Cars In Town!"  A Brendan Kenny Production   brendankenny00@gmail.com</p>
+</footer>
+</body>
+ 
+</html>

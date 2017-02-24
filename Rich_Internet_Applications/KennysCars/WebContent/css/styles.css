@@ -1,0 +1,223 @@
+* 
+@import url(https://fonts.googleapis.com/css?family=Muli|Raleway|Lobster|Press+Start+2P);
+
+
+{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 40px;
+}
+
+/*header{
+	background: linear-gradient(45deg, blue 0%, white 50%, grey 100%);
+	background-color:  #005580;
+	background-image: url('images/car.jpg');
+	border-width:5px;	
+    border-style:outset;
+	border-radius: 25px;
+	margin-bottom: 0.5cm;
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+	text-align:left;
+	font-style: italic;
+			
+}*/
+
+header{
+	background: linear-gradient(55deg, darkslategrey 0%, #005580 50%, cadetblue 100%);
+	/*background-color:  #005580;*/
+	border-width:5px;	
+    border-style:outset;
+	border-radius: 25px;
+	margin-bottom: 0.5cm;
+	text-align:left;
+	font-style: italic;
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+.mainArea {
+	float:left;
+	margin-right:20px;
+	overflow-y: scroll;
+	width:300px;
+}
+
+.mainArea input {
+  margin-bottom:15px;
+  margin-top:5px;
+  width:280px;
+}
+
+.extruded{
+	color: #888;
+  /*position: relative;*/
+  font-size: 250%;
+  color: #FFF;
+  text-shadow: blue 1px 1px,
+                blue 2px 2px,
+                blue 3px 3px,
+                blue 4px 4px,
+                blue 5px 5px,
+                blue 6px 6px;
+  left: -6px;
+  top: -6px;
+  transition: text-shadow 1s, color 1s;
+}
+.extruded:hover{
+  text-shadow: blue;
+  color: red;
+}
+.extruded{
+  font-family: lobster;
+  font-style: italic;
+  
+}
+
+
+header img{
+	float: left;
+	clear: right;
+	border-style:outset;
+	border-radius: 20px;
+}
+
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+
+body {
+	
+	color: black;
+    font-size: large;
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+     
+    
+   /* text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;*/
+    
+    /*background: #ff9900;*/
+}
+
+
+
+
+header:hover{
+  text-shadow: blue;
+  color: black;
+    font-size: 18px;
+}
+
+
+
+/*h1   {color:white;text-shadow: 2px 2px 5px black;}*/
+h2   {color:white;text-shadow: 2px 2px 5px black;}
+
+.leftArea {
+	position: absolute;
+	left: 10px;
+	top: 70px;
+	bottom: 20px;
+	width: 260px;
+	border:solid 1px #CCCCCC;
+	overflow-y: scroll;
+}
+
+
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+	margin-top: 0px;
+}
+
+li a { 
+	text-decoration:none;
+	display: block;
+	color: #000000;
+	border-bottom:solid 1px #CCCCCC;
+	padding: 8px;
+}
+
+li a:hover {
+	background-color: #4B0A1E;
+	color: #BA8A92;
+}
+
+.grow img{
+	height:200px;
+	width: 300px;
+	border-radius:25px;
+	
+	-webkit-transition: all is ease;
+	-moz-transition: all is ease;
+	-o-transition: all is ease;
+	-ms-transition: all is ease;
+	transition: all is ease;	
+}
+
+
+.grow img:hover{
+	width: 250px;
+	height: 250px;
+	
+	
+}
+
+
+
+
+
+
+img{
+	border-width:5px;
+	border-style:outset;
+	box-shadow: 5px 5px 2px #888888;
+	
+}
+
+
+
+div.img {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 300px;
+}	
+
+div.img:hover {
+    border: 1px solid #777;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+    border-style:outset;
+	box-shadow: 5px 5px 2px #888888;
+	font-style: italic;
+	font-weight: bold;
+}
+
+
+footer{
+	/*background-color:  #005580;*/
+	background: linear-gradient(55deg, darkslategrey 0%, #005580 50%, cadetblue 100%);
+	border-style: solid;
+    border-width: 2px 2px 2px 2px;	
+    margin-top: 10px;
+    padding-top: 5px;
+    color:white;text-shadow: 2px 2px 5px black;font-style: italic; text-align:center;
+    border-width:5px;	
+    border-style:outset;
+	border-radius: 25px;
+	margin-bottom: 0.5cm;
+	text-align:center;
+	font-style: italic;
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+
